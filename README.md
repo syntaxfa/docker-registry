@@ -1,15 +1,26 @@
 # Docker Registry
 
-First we need to install passwd:
+Then, create a subdirectory called data, where your registry will store its images:
+````
+mkdir data
+````
+
+we need to install passwd:
 ````
 sudo apt-get update
 sudo apt-get install apache2-utils
-mkdir -p ./auth ./data
+mkdir auth
+cd auth
 ````
 
 set user:
 ````
-htpasswd -c ./auth/htpasswd username
+htpasswd -Bc registry.password username
+````
+
+To add more users, re-run the previous command without -c, which creates a new file:
+````
+htpasswd -B registry.password username
 ````
 
 if you want to create a new user:
