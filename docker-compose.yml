@@ -9,14 +9,8 @@ services:
       REGISTRY_AUTH: htpasswd
       REGISTRY_AUTH_HTPASSWD_REALM: Registry Realm
       REGISTRY_AUTH_HTPASSWD_PATH: /auth/htpasswd
-      REGISTRY_AUTH_HTPASSWD_USERS: |
-        admin:$2y$05$XFXjepRYmDXJm8lkKIi.W.BXpKT6IVW6q0jFv.hx31aaIL62.DHj6
     volumes:
+      - ./auth:/auth
       - ./data:/var/lib/registry
     ports:
       - "127.0.0.1:5000:5000"
-    command: |
-      /bin/sh -c '
-      mkdir -p /auth
-      echo "$${REGISTRY_AUTH_HTPASSWD_USERS}" > /auth/htpasswd
-      /entrypoint.sh /etc/docker/registry/config.yml'
