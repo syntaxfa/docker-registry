@@ -3,14 +3,14 @@ version: '3.9'
 services:
   registry:
     image: registry:2
-    container_name: docker_registry
+    ports:
+    - "5000:5000"
     restart: always
     environment:
       REGISTRY_AUTH: htpasswd
-      REGISTRY_AUTH_HTPASSWD_REALM: Registry Realm
-      REGISTRY_AUTH_HTPASSWD_PATH: /auth/htpasswd
+      REGISTRY_AUTH_HTPASSWD_REALM: Registry
+      REGISTRY_AUTH_HTPASSWD_PATH: /auth/registry.password
+      REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /data
     volumes:
       - ./auth:/auth
-      - ./data:/var/lib/registry
-    ports:
-      - "127.0.0.1:5000:5000"
+      - ./data:/data
